@@ -1,0 +1,33 @@
+package rules
+
+// 包装类型全局变量 数量
+global java.lang.Integer quantity;
+global java.util.List tshirts; //集合类型全局变量
+
+rule "global_package_test1"
+when
+then
+    quantity += 1;
+    System.out.println("quantity in rule1 is : " + quantity);
+end
+
+rule "global_package_test2"
+when
+then
+    System.out.println("quantity now is : " + quantity);
+end
+
+rule "global_array_test1"
+when
+then
+    System.out.println("tshirts before rule1 is : " + tshirts.size());
+    tshirts.add("nike");
+    System.out.println("tshirts in rule1 is : " + tshirts.size());
+end
+
+rule "global_array_test2"
+when
+then
+    tshirts.add("anta");
+    System.out.println("tshirts in rule2 is : " + tshirts.size());
+end

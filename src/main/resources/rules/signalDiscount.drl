@@ -1,0 +1,20 @@
+package rules
+
+import com.legends.drools.entity.ClothOrder
+
+rule "signal_大于300元折扣30元"
+when
+    $order:ClothOrder($op:orgPrice > 300);
+then
+    $order.setRealPrice($op - 30);
+    $order.setOrgPrice($op - 30);
+    System.out.println($order.getRealPrice());
+    System.out.println($order.getOrgPrice());
+end
+
+rule "signal_大于200元小于300元折扣20元"
+when
+    $order:ClothOrder($op:orgPrice > 200 && orgPrice <= 300);
+then
+    $order.setRealPrice($op - 20);
+end

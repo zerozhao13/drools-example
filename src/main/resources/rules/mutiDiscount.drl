@@ -1,0 +1,24 @@
+package rules
+
+import com.legends.drools.entity.ClothOrder
+
+rule "muti_大于300元折扣30元"
+when
+    $order:ClothOrder($op:orgPrice > 300);
+then
+    $order.setRealPrice($op - 30);
+    $order.setOrgPrice($op - 30);
+    update($order);
+    System.out.println($order.getRealPrice());
+    System.out.println($order.getOrgPrice());
+end
+
+rule "muti_大于200元小于300元折扣20元"
+    no-loop
+when
+    $order:ClothOrder($op:orgPrice > 200 && orgPrice <= 300);
+then
+    $order.setOrgPrice($order.getOrgPrice() - 20);
+    //update($order);
+    System.out.println("in muti_大于200元小于300元折扣20元 : " + $order.getRealPrice());
+end

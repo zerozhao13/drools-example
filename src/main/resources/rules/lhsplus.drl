@@ -1,0 +1,40 @@
+package rules
+
+import java.lang.Integer;
+import java.util.List;
+import com.legends.drools.entity.ClothOrder;
+
+global List orderList;
+
+function void printOrderNum (List orderList) {
+
+    //System.out.println("orderQuantity is " + orderQuantity);
+
+    Integer osize = orderList.size();
+    System.out.println("orderQuantity is " + osize);
+    for (Object co : orderList) {
+        System.out.println((ClothOrder)co);
+    }
+}
+
+rule "lhsplus_cloth_madeInChina"
+when
+    $order:ClothOrder(sku in ("anta", "xtep", "lining"));
+then
+    //orderList.add($order);
+    System.out.println("国产品牌有：" + $order);
+end
+
+rule "lhsplus_cloth_madeInChina_gt99" extends "lhsplus_cloth_madeInChina"
+when
+    ClothOrder(sku in ("anta"));
+then
+    System.out.println("国产品牌且大于99元的有：" + $order);
+    //orderList.add($order);
+end
+
+rule "lhsplus_cloth_madeInChina_num"
+when
+then
+    printOrderNum(orderList);
+end

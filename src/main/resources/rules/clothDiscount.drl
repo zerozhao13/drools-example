@@ -1,0 +1,20 @@
+package rules
+
+import com.legends.drools.entity.ClothOrder
+
+rule "T恤 99以下无优惠"
+    when
+        $order:ClothOrder($op:orgPrice < 99) //模式匹配在工作内存中定义order，查找对象原价小于99时
+    then
+        $order.setRealPrice($order.getOrgPrice());
+        System.out.println("Fired Rule NikeT恤 99以下无优惠 : " + $order.getRealPrice());
+end
+
+rule "T恤 99到199优惠10元"
+agenda-group "xtep"
+    when
+        $order:ClothOrder(orgPrice >= 99 && orgPrice < 199) //模式匹配在工作内存中定义order，查找对象原价小于99时
+    then
+        $order.setRealPrice($order.getOrgPrice() - 10);
+        System.out.println("Fired Rule NikeT恤 99到199优惠10元 : " + $order.getRealPrice());
+end

@@ -1,0 +1,11 @@
+package rules
+
+import com.legends.drools.entity.ClothOrder;
+
+query "queryNike"
+    $order:ClothOrder("nike" == sku);
+end
+
+query "queryGt99" (Integer forgPrice)
+    $order:ClothOrder("anta" == sku && orgPrice > forgPrice);
+end
